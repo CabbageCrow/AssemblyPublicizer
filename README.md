@@ -21,7 +21,7 @@ The **second argument is optional** and contains the **output path and/or filena
   
 ### How to "Allow unsafe code" in Visual Studio
 See the following link:  
-How to enable it: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/unsafe-compiler-option
+https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/unsafe-compiler-option
   
 ## Command line options
 Usage: AssemblyPublicizer.exe [Options]+
