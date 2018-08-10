@@ -15,10 +15,10 @@ creating an instance of an private nested class to use as an parameter for a pri
 You can drop your target dll onto the .exe (on Windows) or use the command line.  
 The **first argument** is the path to the **target assembly** (absolute or relative).  
 The **second argument is optional** and contains the **output path and/or filename**.  
-* It can be just a (relative) path like "subdir1\subdir2"  
-* It can be just a filename like "CustomFileName.dll"  
-* It can be a filename with path like "C:\dir1\dir2\CustomFileName.dll"  
-  If omited, it creates the modified assembly with an "\_publicized" suffix in the subdirectory "publicized_assemblies".  
+* It can be just a (relative) path like `subdir1\subdir2`  
+* It can be just a filename like `CustomFileName.dll`  
+* It can be a filename with path like `C:\dir1\dir2\CustomFileName.dll`  
+  If omited, it creates the modified assembly with an `_publicized` suffix in the subdirectory `publicized_assemblies`.  
   
 ### How to "Allow unsafe code" in Visual Studio
 See the following link:  
