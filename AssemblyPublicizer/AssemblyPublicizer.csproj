@@ -74,4 +74,8 @@
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY "$(TargetDir)*" "$(SolutionPath)\..\..\AssemblyPublicizer\" /S /Y
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>
