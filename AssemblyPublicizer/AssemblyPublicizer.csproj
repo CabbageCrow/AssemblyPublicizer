@@ -87,7 +87,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCOPY "$(TargetDir)*" "$(SolutionPath)\..\..\AssemblyPublicizer\" /S /Y
-</PostBuildEvent>
+    <PostBuildEvent>XCOPY "$(TargetDir)Licenses\*" "$(SolutionPath)\..\..\AssemblyPublicizer\Licenses\*" /S /Y
+copy  "$(TargetPath)" "$(SolutionPath)\..\..\AssemblyPublicizer\"</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -37,6 +37,8 @@ namespace CabbageCrow.AssemblyPublicizer
 	/// Creates a copy of an assembly in which all members are public (types, methods, fields, getters and setters of properties).
 	/// If you use the modified assembly as your reference and compile your dll with the option "Allow unsafe code" enabled, 
 	/// you can access all private elements even when using the original assembly.
+	/// Without "Allow unsafe code" you get an access violation exception during runtime when accessing private members except for types.  
+	/// How to enable it: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/unsafe-compiler-option
 	/// arg 0 / -i|--input:		Path to the assembly (absolute or relative)
 	/// arg 1 / -o|--output:	[Optional] Output path/filename
 	///							Can be just a (relative) path like "subdir1\subdir2"
@@ -45,7 +47,7 @@ namespace CabbageCrow.AssemblyPublicizer
 	/// </summary>
 	class AssemblyPublicizer
 	{
-		static bool wait, help;
+		static bool automaticExit, help;
 
 		static void Main(string[] args)
 		{
@@ -57,10 +59,10 @@ namespace CabbageCrow.AssemblyPublicizer
 
 			var options = new OptionSet
 			{
-				{ "i|input=", "path (relative or absolute) to the input assembly", i => input = i }, 
-				{ "o|output=", "path/dir/filename for the output assembly", o => output = o }, 
-				{ "w|wait", "application should wait for user input to exit", w => wait = w != null}, 
-				{ "h|help", "show this message and exit", h => help = h != null}
+				{ "i|input=", "Path (relative or absolute) to the input assembly", i => input = i }, 
+				{ "o|output=", "Path/dir/filename for the output assembly", o => output = o }, 
+				{ "e|exit", "Application should automatically exit", e => automaticExit = e != null}, 
+				{ "h|help", "Show this message", h => help = h != null}
 			};
 
 
@@ -84,7 +86,7 @@ namespace CabbageCrow.AssemblyPublicizer
 				if (output == "" && extra.Count() >= 2)
 					output = extra[1];
 			}
-			catch (OptionException e)
+			catch (OptionException)
 			{
 				// output some error message
 				Console.WriteLine("ERROR! Incorrect arguments. You need to provide the path to the assembly to publicize.");
@@ -136,12 +138,9 @@ namespace CabbageCrow.AssemblyPublicizer
 			var allTypes = GetAllTypes(assembly.MainModule);
 			var allMethods = allTypes.SelectMany(t => t.Methods);
 			var allFields = allTypes.SelectMany(t => t.Fields);
-			var allProperties = allTypes.SelectMany(t => t.Properties);
-			var allGetters = allProperties.Select(p => p.GetMethod);
-			var allSetters = allProperties.Select(p => p.SetMethod);
 
 			int count;
-			string reportString = "Changed {0} non-public {1} to public.";
+			string reportString = "Changed {0} {1} to public.";
 
 			#region Make everything public
 
@@ -168,7 +167,7 @@ namespace CabbageCrow.AssemblyPublicizer
 					method.IsPublic = true;
 				}
 			}
-			Console.WriteLine(reportString, count, "methods");
+			Console.WriteLine(reportString, count, "methods (including getters and setters)");
 
 			count = 0;
 			foreach (var field in allFields)
@@ -181,33 +180,10 @@ namespace CabbageCrow.AssemblyPublicizer
 			}
 			Console.WriteLine(reportString, count, "fields");
 
-			count = 0;
-			foreach (var getter in allGetters)
-			{
-				if (!getter?.IsPublic ?? false)
-				{
-					count++;
-					getter.IsPublic = true;
-				}
-			}
-			Console.WriteLine(reportString, count, "getters");
-
-			count = 0;
-			foreach (var setter in allSetters)
-			{
-				if (!setter?.IsPublic ?? false)
-				{
-					count++;
-					setter.IsPublic = true;
-				}
-			}
-			Console.WriteLine(reportString, count, "setters");
-
 			#endregion
 
 
 			Console.WriteLine();
-			Console.WriteLine("Saving the new assembly ...");
 
 			if (outputName == "")
 			{
@@ -221,6 +197,8 @@ namespace CabbageCrow.AssemblyPublicizer
 				outputPath = defaultOutputDir;
 				Console.WriteLine(@"Info: Use default output dir: ""{0}""", outputPath);
 			}
+
+			Console.WriteLine("Saving a copy of the modified assembly ...");
 
 			var outputFile = Path.Combine(outputPath, outputName);
 
@@ -242,13 +220,15 @@ namespace CabbageCrow.AssemblyPublicizer
 			Console.WriteLine("Completed.");
 			Console.WriteLine();
 			Console.WriteLine("Use the publicized library as your reference and compile your dll with the ");
-			Console.WriteLine("option \"Allow unsafe code\" enabled.");
+			Console.WriteLine(@"option ""Allow unsafe code"" enabled.");
+			Console.WriteLine(@"Without it you get an access violation exception during runtime when accessing");
+			Console.WriteLine("private members except for types.");
 			Exit(0);
 		}
 
 		public static void Exit(int exitCode = 0)
 		{
-			if (wait)
+			if (!automaticExit)
 			{
 				Console.WriteLine();
 				Console.WriteLine("Press any key to continue ...");
@@ -259,7 +239,6 @@ namespace CabbageCrow.AssemblyPublicizer
 
 		private static void ShowHelp(OptionSet p)
 		{
-			Console.WriteLine();
 			Console.WriteLine("Usage: AssemblyPublicizer.exe [Options]+");
 			Console.WriteLine("Creates a copy of an assembly in which all members are public.");
 			Console.WriteLine("An input path must be provided, the other options are optional.");
