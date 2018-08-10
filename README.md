@@ -13,7 +13,7 @@ creating an instance of an private nested class to use as an parameter for a pri
   
 ## Usage
 You can drop your target dll onto the .exe (on Windows) or use the command line.  
-The **first argument ** is the path to the **target assembly** (absolute or relative).  
+The **first argument** is the path to the **target assembly** (absolute or relative).  
 The **second argument is optional** and contains the **output path and/or filename**.  
 * It can be just a (relative) path like "subdir1\subdir2"  
 * It can be just a filename like "CustomFileName.dll"  
