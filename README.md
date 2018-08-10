@@ -12,12 +12,12 @@ creating an instance of an private nested class to use as an parameter for a pri
 ## Usage
 You can drop your target dll onto the .exe (on Windows) or use the command line.  
 The first parameter is the path to the target assembly (absolute or relative).  
-The second parameter is optional and contains the output path and/or filename
-* It can be just a (relative) path like "subdir1\subdir2"
-* It can be just a filename like "CustomFileName.dll"
-* It can be a filename with path like "C:\dir1\dir2\CustomFileName.dll"
-  If omited, it creates the modified assembly with an "_publicized" suffix in the subdirectory "publicized_assemblies". 
-  This way it stays organized if you publicize multiple assemblies.
+The second parameter is optional and contains the output path and/or filename.  
+* It can be just a (relative) path like "subdir1\subdir2"  
+* It can be just a filename like "CustomFileName.dll"  
+* It can be a filename with path like "C:\dir1\dir2\CustomFileName.dll"  
+  If omited, it creates the modified assembly with an "_publicized" suffix in the subdirectory "publicized_assemblies".  
+  This way it stays organized if you publicize multiple assemblies. 
 
 ## Support me
 If you like my work, spread the word so more people can enjoy it.  
