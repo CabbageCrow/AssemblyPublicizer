@@ -18,7 +18,6 @@ The **second parameter is optional** and contains the **output path and/or filen
 * It can be just a filename like "CustomFileName.dll"  
 * It can be a filename with path like "C:\dir1\dir2\CustomFileName.dll"  
   If omited, it creates the modified assembly with an "\_publicized" suffix in the subdirectory "publicized_assemblies".  
-  This way it stays organized if you publicize multiple assemblies. 
 
 ## Support me
 If you like my work, spread the word so more people can enjoy it.  
