@@ -231,7 +231,7 @@ namespace CabbageCrow.AssemblyPublicizer
 			if (!automaticExit)
 			{
 				Console.WriteLine();
-				Console.WriteLine("Press any key to continue ...");
+				Console.WriteLine("Press any key to exit ...");
 				Console.ReadKey();
 			}
 			Environment.Exit(exitCode);
