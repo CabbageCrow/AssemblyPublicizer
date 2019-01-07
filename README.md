@@ -4,12 +4,14 @@
   
 A tool to create a copy of an assembly in which **all members are public** (types, methods, fields, getters and setters of properties).  
   
-The intended usage is for modding, because this way you can **access everything normally without the use of reflection** or some helper classes.  
+The intended usage is for modding in Unity(*), because this way you can **access everything normally without the use of reflection** or some helper classes.  
 If you use the modified publicized libary in your references and **compile your dll with "Allow unsafe code" enabled**, 
 the access even works with the original assembly fine where the member still are private.  
 Without "Allow unsafe code" you get an access violation exception during runtime when accessing private members except for types.  
 This way you get the full features of your IDE, like **auto completion** and you don't have to worry about cumbersome stuff like 
 creating an instance of an private nested class to use as an parameter for a private method.  
+  
+(*) It probably works for other instance than Unity too, maybe it's dependent if the software/game uses Mono? If you know more about it I would be happy to hear about it. :-)
   
 ## Usage
 You can drop your target dll onto the .exe (on Windows) or use the command line.  
