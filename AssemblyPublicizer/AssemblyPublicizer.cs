@@ -206,7 +206,6 @@ namespace CabbageCrow.AssemblyPublicizer
 			{
 				if (outputPath != "" && !Directory.Exists(outputPath))
 					Directory.CreateDirectory(outputPath);
-				assembly.Write(outputFile);
 			}
 			catch (Exception)
 			{
@@ -216,6 +215,19 @@ namespace CabbageCrow.AssemblyPublicizer
 					"and in case of overwriting an existing file ensure that it isn't currently used.");
 				Exit(50);
 			}
+
+			try
+			{
+				assembly.Write(outputFile);
+			}
+			catch(Exception e)
+			{
+				Console.WriteLine();
+				Console.WriteLine("ERROR! Cannot write assembly.");
+				Console.WriteLine(e.Message);
+				Exit(60);
+			}
+
 
 			Console.WriteLine("Completed.");
 			Console.WriteLine();
