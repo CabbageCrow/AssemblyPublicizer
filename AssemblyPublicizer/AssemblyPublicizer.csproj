@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>CabbageCrow.AssemblyPublicizer</RootNamespace>
     <AssemblyName>AssemblyPublicizer</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -28,7 +29,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>embedded</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -38,27 +39,21 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Cecil, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.10.0\lib\net40\Mono.Cecil.dll</HintPath>
-      <EmbedAssembly>true</EmbedAssembly>
+    <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.Cecil.Mdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.10.0\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Mono.Cecil, Version=0.11.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.11.3\lib\net40\Mono.Cecil.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Cecil.Pdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.10.0\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.11.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.11.3\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Cecil.Rocks, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.10.0\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.11.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.11.3\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Options, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Options.5.3.0.1\lib\net4-client\Mono.Options.dll</HintPath>
-      <EmbedAssembly>true</EmbedAssembly>
-      <Private>False</Private>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.11.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.11.3\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -90,4 +85,12 @@
     <PostBuildEvent>XCOPY "$(TargetDir)Licenses\*" "$(SolutionPath)\..\..\AssemblyPublicizer\Licenses\*" /S /Y
 copy  "$(TargetPath)" "$(SolutionPath)\..\..\AssemblyPublicizer\"</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props'))" />
+    <Error Condition="!Exists('..\packages\Fody.6.2.6\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.2.6\build\Fody.targets'))" />
+  </Target>
+  <Import Project="..\packages\Fody.6.2.6\build\Fody.targets" Condition="Exists('..\packages\Fody.6.2.6\build\Fody.targets')" />
 </Project>
