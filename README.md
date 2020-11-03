@@ -25,6 +25,6 @@ https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-optio
 If you like it, spread the word so more people can enjoy it.  
 You also can show your appreciation with a metaphorical coffee or cabbage:  
 <a href='https://ko-fi.com/Q5Q0BT8U' target='_blank'><img height='55' style='border:0px;height:55px;' 
-src='https://github.com/CabbageCrow/Miscellaneous/blob/master/img/Kofi_btn/kofi_btn_coffee.png?v=0' border='0' alt='Buy Me a metaphorical Coffee at ko-fi.com' /></a> 
+src='https://github.com/CabbageCrow/Miscellaneous/blob/master/img/Kofi_btn/kofi_btn_coffee.png?v=0' border='0' alt='Buy the original author a metaphorical Coffee at ko-fi.com' /></a> 
 <a href='https://ko-fi.com/Q5Q0BT8U' target='_blank'><img height='55' style='border:0px;height:55px;' 
 src='https://github.com/CabbageCrow/Miscellaneous/blob/master/img/Kofi_btn/kofi_btn_cabbage.png?v=0' border='0' alt='Give the Crow a Cabbage at ko-fi.com' /></a>
