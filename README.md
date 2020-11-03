@@ -14,7 +14,7 @@ creating an instance of an private nested class to use as an parameter for a pri
 (*) It probably works for other instance than Unity too, maybe it's dependent if the software/game uses Mono? If you know more about it I would be happy to hear about it. :-)
   
 ## Usage
-You can drop your target dll onto the .exe (on Windows) or use the command line.  
+You can drop one or more target dll onto the .exe (on Windows) or use the command line.  
 The **arguments** are the path to each **target assembly** (absolute or relative).  
   
 ### How to "Allow unsafe code" in Visual Studio
